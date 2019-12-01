@@ -1,22 +1,22 @@
-# x730-script
-This is the safe shutdown script for x730;
+# x735-script
+This is the safe shutdown script for x735;
 
 NOTE:
 
-We test this shell script base official Raspbian '2018-11-13-raspbian-stretch.img' version;
+We tested this shell script with the official Raspbian '2019-09-26-raspbian-buster-lite.img' image.
 
 How to use?
 
 * step 1:
-> wget https://raw.githubusercontent.com/geekworm-com/x730-script/master/x730.sh
+> wget https://raw.githubusercontent.com/Thoulah/x735-script/master/x735.sh
 
-> sudo chmod +x x730.sh
+> chmod +x x735.sh
 
-> sudo bash x730.sh
+> sudo bash x735.sh
 
 * step 2:
 
-> printf "%s\\n" "alias x730off='sudo x730shutdown.sh'" >> ~/.bashrc
+> printf "%s\\n" "alias x735off='sudo /usr/local/sbin/X735shutdown.sh'" >> ~/.bashrc
 
 * step 3:
 > sudo reboot
