@@ -43,9 +43,9 @@ while [ 1 ]; do
       exit
     fi
   fi
-done' > /etc/X735pwr.sh
-chmod +x /etc/X735pwr.sh
-sed -i '$ i /etc/X735pwr.sh &' /etc/rc.local
+done' > /etc/x735pwr.sh
+chmod +x /etc/x735pwr.sh
+sed -i '$ i /etc/x735pwr.sh &' /etc/rc.local
 
 
 #X735 full shutdown through Software
@@ -73,5 +73,23 @@ echo "X735 Shutting down..."
 
 #restore GPIO 18
 echo "0" > /sys/class/gpio/gpio$BUTTON/value
-' > /usr/local/sbin/X735shutdown.sh
-chmod +x /usr/local/sbin/X735shutdown.sh
+' > /usr/local/sbin/x735shutdown.sh
+chmod +x /usr/local/sbin/x735shutdown.sh
+
+
+#Automatically run above poweroff script on shutdown
+echo '[Unit]
+Description=Before Shutting Down
+After=reboot.target
+
+[Service]
+Type=oneshot
+RemainAfterExit=true
+ExecStart=/bin/true
+ExecStop=/usr/local/sbin/x735shutdown.sh
+
+[Install]
+WantedBy=multi-user.target' > /etc/systemd/system/before_shutdown.service
+systemctl daemon-reload
+systemctl enable before_shutdown.service
+systemctl start before_shutdown.service
