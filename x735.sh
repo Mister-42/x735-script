@@ -1,4 +1,4 @@
-#X735 Powering on /reboot /shutdown from hardware
+#x735 Powering on /reboot /shutdown from hardware
 #!/bin/bash
 
 if [[ $EUID -ne 0 ]]; then
@@ -20,7 +20,7 @@ echo "$BOOT" > /sys/class/gpio/export
 echo "out" > /sys/class/gpio/gpio$BOOT/direction
 echo "1" > /sys/class/gpio/gpio$BOOT/value
 
-echo "X735 Shutting down..."
+echo "x735 Shutting down..."
 
 while [ 1 ]; do
   shutdownSignal=$(cat /sys/class/gpio/gpio$SHUTDOWN/value)
@@ -31,14 +31,14 @@ while [ 1 ]; do
     while [ $shutdownSignal = 1 ]; do
       /bin/sleep 0.02
       if [ $(($(date +%s%N | cut -b1-13)-$pulseStart)) -gt $REBOOTPULSEMAXIMUM ]; then
-        echo "X735 Shutting down", SHUTDOWN, ", halting RPI ..."
+        echo "x735 Shutting down", SHUTDOWN, ", halting RPI ..."
         sudo poweroff
         exit
       fi
       shutdownSignal=$(cat /sys/class/gpio/gpio$SHUTDOWN/value)
     done
     if [ $(($(date +%s%N | cut -b1-13)-$pulseStart)) -gt $REBOOTPULSEMINIMUM ]; then 
-      echo "X735 Rebooting", SHUTDOWN, ", recycling RPI ..."
+      echo "x735 Rebooting", SHUTDOWN, ", recycling RPI ..."
       sudo reboot
       exit
     fi
@@ -48,7 +48,7 @@ chmod +x /etc/x735pwr.sh
 sed -i '$ i /etc/x735pwr.sh &' /etc/rc.local
 
 
-#X735 full shutdown through Software
+#x735 full shutdown through Software
 #!/bin/bash
 
     sed -e '/button/ s/^#*/#/' -i /etc/rc.local
@@ -68,7 +68,7 @@ if ! [[ $SLEEP =~ $re ]] ; then
    echo "error: sleep time not a number" >&2; exit 1
 fi
 
-echo "X735 Shutting down..."
+echo "x735 Shutting down..."
 /bin/sleep $SLEEP
 
 #restore GPIO 18
@@ -93,3 +93,4 @@ WantedBy=multi-user.target' > /etc/systemd/system/before_shutdown.service
 systemctl daemon-reload
 systemctl enable before_shutdown.service
 systemctl start before_shutdown.service
+

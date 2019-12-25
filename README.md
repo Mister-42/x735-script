@@ -16,7 +16,7 @@ How to use?
 
 * step 2:
 
-> printf "%s\\n" "alias x735off='sudo /usr/local/sbin/X735shutdown.sh'" >> ~/.bashrc
+> printf "%s\\n" "alias x735off='sudo /usr/local/sbin/x735shutdown.sh'" >> ~/.bashrc
 
 * step 3:
 > sudo reboot
