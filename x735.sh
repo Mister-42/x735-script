@@ -26,7 +26,7 @@ while [ 1 ]; do
   shutdownSignal=$(cat /sys/class/gpio/gpio$SHUTDOWN/value)
   if [ $shutdownSignal = 0 ]; then
     /bin/sleep 0.2
-  else  
+  else
     pulseStart=$(date +%s%N | cut -b1-13)
     while [ $shutdownSignal = 1 ]; do
       /bin/sleep 0.02
@@ -37,7 +37,7 @@ while [ 1 ]; do
       fi
       shutdownSignal=$(cat /sys/class/gpio/gpio$SHUTDOWN/value)
     done
-    if [ $(($(date +%s%N | cut -b1-13)-$pulseStart)) -gt $REBOOTPULSEMINIMUM ]; then 
+    if [ $(($(date +%s%N | cut -b1-13)-$pulseStart)) -gt $REBOOTPULSEMINIMUM ]; then
       echo "x735 Rebooting", SHUTDOWN, ", recycling RPI ..."
       sudo reboot
       exit
@@ -56,7 +56,6 @@ sed -i '$ i /etc/x735pwr.sh &' /etc/rc.local
     echo '#!/bin/bash
 
 BUTTON=18
-
 echo "$BUTTON" > /sys/class/gpio/export;
 echo "out" > /sys/class/gpio/gpio$BUTTON/direction
 echo "1" > /sys/class/gpio/gpio$BUTTON/value
